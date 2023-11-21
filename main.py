@@ -33,14 +33,14 @@ async def on_message(message):
     # サーバー停止
     if message.content.startswith("$サーバーを停止して"):
         os.system(
-            f"sshpass -p {os.environ['RPASSWD']} ssh -o 'StrictHostKeyChecking no' {os.environ['RUSERNAME']}@{os.environ['SSH']} echo {os.environ['RPASSWD']} | sudo -S shutdown -h now"
+            f"{os.environ['PASSWD']} | sudo -S sshpass -p {os.environ['RPASSWD']} ssh -o 'StrictHostKeyChecking no' {os.environ['RUSERNAME']}@{os.environ['SSH']} echo {os.environ['RPASSWD']} | sudo -S shutdown -h now"
         )
         await message.channel.send("サーバーを停止しました")
 
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
         os.system(
-            f"sshpass -p {os.environ['RPASSWD']} ssh -o 'StrictHostKeyChecking no' {os.environ['RUSERNAME']}@{os.environ['SSH']} echo {os.environ['RPASSWD']} | sudo -S shutdown -r now"
+            f"{os.environ['PASSWD']} | sudo -S sshpass -p {os.environ['RPASSWD']} ssh -o 'StrictHostKeyChecking no' {os.environ['RUSERNAME']}@{os.environ['SSH']} echo {os.environ['RPASSWD']} | sudo -S shutdown -r now"
         )
         await message.channel.send("サーバーを再起動しました")
 
