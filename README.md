@@ -9,11 +9,11 @@
 - python-dotenv
 
 # 使い方
-- Python3.11以上を入れた状態でLinuxでinstall.shを実行してね(適当)
+- Python3.11以上とscreenを入れた状態でLinuxでinstall.shを実行してね(適当)
 - start.shを実行してね
 - Windowsは自分で考えて実行して(投げやり)
-.envファイルのいじり方
 
+.envファイルのいじり方
 ```例
 # 動作させるサーバーのMACアドレス
 WOL=ff:ff:ff:ff:ff
