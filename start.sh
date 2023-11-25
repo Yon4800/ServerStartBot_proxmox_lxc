@@ -1,1 +1,1 @@
-screen -AmdS SSB python3.11 main.py
+screen -AmdS SSBP python3.11 main.py
