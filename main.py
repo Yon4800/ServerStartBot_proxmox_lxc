@@ -57,7 +57,7 @@ async def on_message(message):
                 clientp.connect(
                     hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
-                stdin, stdout, stderr = await clientp.exec_command(LINUX_COMMAND1)
+                stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND1)
                 await message.channel.send("サーバーを停止しました")
             except Exception as e:
                 await message.channel.send(f"エラー！: {e}")
@@ -71,7 +71,7 @@ async def on_message(message):
                 clientp.connect(
                     hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
-                stdin, stdout, stderr = await clientp.exec_command(LINUX_COMMAND2)
+                stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND2)
                 await message.channel.send("サーバーを再起動しました")
             except Exception as e:
                 await message.channel.send(f"エラー！: {e}")
