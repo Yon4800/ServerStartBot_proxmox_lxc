@@ -37,7 +37,7 @@ async def on_message(message):
         if res.is_reached():
             await message.channel.send("サーバーは既に起動しています")
         else:
-            await send_magic_packet(os.environ["WOL"])
+            send_magic_packet(os.environ["WOL"])
             await message.channel.send("サーバーを起動しました")
 
     # サーバー停止
