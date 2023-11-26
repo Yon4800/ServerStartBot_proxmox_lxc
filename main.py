@@ -6,10 +6,16 @@ import discord
 
 import pings
 
-import subprocess
+import paramiko
 
 # .envファイルの内容を読み込見込む
 load_dotenv()
+
+HOSTNAME = os.environ["SSH"]
+USERNAME = os.environ["RUSERNAME"]
+PASSWORD = os.environ["RPASSWD"]
+LINUX_COMMAND1 = f"echo {os.environ['RPASSWD']} | sudo -S shutdown -h now"
+LINUX_COMMAND2 = f"echo {os.environ['RPASSWD']} | sudo -S reboot"
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -45,60 +51,36 @@ async def on_message(message):
     # サーバー停止
     if message.content.startswith("$サーバーを停止して"):
         if res.is_reached():
-            try:
-                subprocess.check_call(
-                    [
-                        "sshpass",
-                        "-p",
-                        os.environ["RPASSWD"],
-                        "ssh",
-                        "-o",
-                        "StrictHostKeyChecking=no",
-                        "-o",
-                        "UserKnownHostsFile=/dev/null",
-                        f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
-                        "'echo",
-                        os.environ["RPASSWD"],
-                        "|",
-                        "sudo",
-                        "-S",
-                        "shutdown",
-                        "-h",
-                        "now'",
-                    ]
+            with paramiko.SSHClient() as client:
+                client = paramiko.SSHClient()
+                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                client.connect(
+                    hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
-                await message.channel.send("サーバーを停止しました")
-            except subprocess.CalledProcessError as e:
-                await message.channel.send("エラー！:", e)
+                stdin, stdout, stderr = client.exec_command(LINUX_COMMAND1)
+                if stderr == None | stderr == "":
+                    for line in stderr:
+                        await message.channel.send("エラー！:", line)
+                else:
+                    await message.channel.send("サーバーを再起動しました:", line)
         else:
             await message.channel.send("サーバーは既に閉じているか起動中です。")
 
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
         if res.is_reached():
-            try:
-                subprocess.check_call(
-                    [
-                        "sshpass",
-                        "-p",
-                        os.environ["RPASSWD"],
-                        "ssh",
-                        "-o",
-                        "StrictHostKeyChecking=no",
-                        "-o",
-                        "UserKnownHostsFile=/dev/null",
-                        f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
-                        "'echo",
-                        os.environ["RPASSWD"],
-                        "|",
-                        "sudo",
-                        "-S",
-                        "reboot'",
-                    ]
+            with paramiko.SSHClient() as client:
+                client = paramiko.SSHClient()
+                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                client.connect(
+                    hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
-                await message.channel.send("サーバーを再起動しました")
-            except subprocess.CalledProcessError as e:
-                await message.channel.send("エラー！:", e)
+                stdin, stdout, stderr = client.exec_command(LINUX_COMMAND2)
+                if stderr == None | stderr == "":
+                    for line in stderr:
+                        await message.channel.send("エラー！:", line)
+                else:
+                    await message.channel.send("サーバーを再起動しました:", line)
         else:
             await message.channel.send("サーバーが閉じているので起動してください:")
 
