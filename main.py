@@ -51,32 +51,30 @@ async def on_message(message):
     # サーバー停止
     if message.content.startswith("$サーバーを停止して"):
         with paramiko.SSHClient() as clientp:
-            clientp = paramiko.SSHClient()
-            clientp.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            clientp.connect(
-                hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
-            )
-            stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND1)
-            if stderr == None or stderr == "":
-                for line in stderr:
-                    await message.channel.send("エラー！:", line)
-            else:
+            try:
+                clientp = paramiko.SSHClient()
+                clientp.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                clientp.connect(
+                    hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
+                )
+                stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND1)
                 await message.channel.send("サーバーを停止しました")
+            except Exception as e:
+                await message.channel.send("エラー！:", e)
 
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
         with paramiko.SSHClient() as clientp:
-            clientp = paramiko.SSHClient()
-            clientp.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            clientp.connect(
-                hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
-            )
-            stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND2)
-            if stderr == None or stderr == "":
-                for line in stderr:
-                    await message.channel.send("エラー！:", line)
-            else:
+            try:
+                clientp = paramiko.SSHClient()
+                clientp.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                clientp.connect(
+                    hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
+                )
+                stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND2)
                 await message.channel.send("サーバーを再起動しました")
+            except Exception as e:
+                await message.channel.send("エラー！:", e)
 
 
 # os.environを用いて環境変数を表示させます
