@@ -51,13 +51,13 @@ async def on_message(message):
     # サーバー停止
     if message.content.startswith("$サーバーを停止して"):
         if res.is_reached():
-            with paramiko.SSHClient() as client:
-                client = paramiko.SSHClient()
-                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                client.connect(
+            with paramiko.SSHClient() as clientp:
+                clientp = paramiko.SSHClient()
+                clientp.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                clientp.connect(
                     hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
-                stdin, stdout, stderr = client.exec_command(LINUX_COMMAND1)
+                stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND1)
                 if stderr == None | stderr == "":
                     for line in stderr:
                         await message.channel.send("エラー！:", line)
@@ -69,13 +69,13 @@ async def on_message(message):
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
         if res.is_reached():
-            with paramiko.SSHClient() as client:
-                client = paramiko.SSHClient()
-                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                client.connect(
+            with paramiko.SSHClient() as clientp:
+                clientp = paramiko.SSHClient()
+                clientp.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                clientp.connect(
                     hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
-                stdin, stdout, stderr = client.exec_command(LINUX_COMMAND2)
+                stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND2)
                 if stderr == None | stderr == "":
                     for line in stderr:
                         await message.channel.send("エラー！:", line)
