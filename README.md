@@ -9,6 +9,7 @@
 - python-dotenv
 
 # 使い方
+- ```git clone https://github.com/Yon4800/ServerStartBot.git``` を実行します
 - Python3.11以上とscreenを入れた状態でLinuxでinstall.shを実行してね(適当)
 - start.shを実行してね
 - Windowsは自分で考えて実行して(投げやり)
