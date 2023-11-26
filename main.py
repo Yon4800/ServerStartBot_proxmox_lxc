@@ -47,23 +47,25 @@ async def on_message(message):
         if res.is_reached():
             try:
                 subprocess.check_call(
-                    "sshpass",
-                    "-p",
-                    os.environ["RPASSWD"],
-                    "ssh",
-                    "-o",
-                    "StrictHostKeyChecking=no",
-                    "-o",
-                    "UserKnownHostsFile=/dev/null",
-                    f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
-                    "'echo",
-                    os.environ["RPASSWD"],
-                    "|",
-                    "sudo",
-                    "-S",
-                    "shutdown",
-                    "-h",
-                    "now'",
+                    [
+                        "sshpass",
+                        "-p",
+                        os.environ["RPASSWD"],
+                        "ssh",
+                        "-o",
+                        "StrictHostKeyChecking=no",
+                        "-o",
+                        "UserKnownHostsFile=/dev/null",
+                        f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
+                        "'echo",
+                        os.environ["RPASSWD"],
+                        "|",
+                        "sudo",
+                        "-S",
+                        "shutdown",
+                        "-h",
+                        "now'",
+                    ]
                 )
                 await message.channel.send("サーバーを停止しました")
             except subprocess.CalledProcessError as e:
@@ -76,21 +78,23 @@ async def on_message(message):
         if res.is_reached():
             try:
                 subprocess.check_call(
-                    "sshpass",
-                    "-p",
-                    os.environ["RPASSWD"],
-                    "ssh",
-                    "-o",
-                    "StrictHostKeyChecking=no",
-                    "-o",
-                    "UserKnownHostsFile=/dev/null",
-                    f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
-                    "'echo",
-                    os.environ["RPASSWD"],
-                    "|",
-                    "sudo",
-                    "-S",
-                    "reboot'",
+                    [
+                        "sshpass",
+                        "-p",
+                        os.environ["RPASSWD"],
+                        "ssh",
+                        "-o",
+                        "StrictHostKeyChecking=no",
+                        "-o",
+                        "UserKnownHostsFile=/dev/null",
+                        f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
+                        "'echo",
+                        os.environ["RPASSWD"],
+                        "|",
+                        "sudo",
+                        "-S",
+                        "reboot'",
+                    ]
                 )
                 await message.channel.send("サーバーを再起動しました")
             except subprocess.CalledProcessError as e:
