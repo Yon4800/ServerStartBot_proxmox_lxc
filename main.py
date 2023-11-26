@@ -58,7 +58,7 @@ async def on_message(message):
                     hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
                 stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND1)
-                if stderr == None | stderr == "":
+                if stderr == None or stderr == "":
                     for line in stderr:
                         await message.channel.send("エラー！:", line)
                 else:
@@ -76,7 +76,7 @@ async def on_message(message):
                     hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
                 )
                 stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND2)
-                if stderr == None | stderr == "":
+                if stderr == None or stderr == "":
                     for line in stderr:
                         await message.channel.send("エラー！:", line)
                 else:
