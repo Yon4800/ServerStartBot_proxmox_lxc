@@ -61,7 +61,7 @@ async def on_message(message):
                 for line in stderr:
                     await message.channel.send("エラー！:", line)
             else:
-                await message.channel.send("サーバーを再起動しました:", line)
+                await message.channel.send("サーバーを停止しました")
 
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
@@ -76,7 +76,7 @@ async def on_message(message):
                 for line in stderr:
                     await message.channel.send("エラー！:", line)
             else:
-                await message.channel.send("サーバーを再起動しました:", line)
+                await message.channel.send("サーバーを再起動しました")
 
 
 # os.environを用いて環境変数を表示させます
