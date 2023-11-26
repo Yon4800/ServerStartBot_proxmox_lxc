@@ -42,22 +42,22 @@ async def on_message(message):
 
     # サーバー停止
     if message.content.startswith("$サーバーを停止して"):
-        if res.is_reached():
+        try:
             os.system(
                 f"sshpass -p {os.environ['RPASSWD']} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null {os.environ['RUSERNAME']}@{os.environ['SSH']} 'echo {os.environ['RPASSWD']} | sudo -S shutdown -h now'"
             )
             await message.channel.send("サーバーを停止しました")
-        else:
+        except:
             await message.channel.send("サーバーは既に閉じています。")
 
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
-        if res.is_reached():
+        try:
             os.system(
                 f"sshpass -p {os.environ['RPASSWD']} ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null {os.environ['RUSERNAME']}@{os.environ['SSH']} 'echo {os.environ['RPASSWD']} | sudo -S reboot'"
             )
             await message.channel.send("サーバーを再起動しました")
-        else:
+        except:
             await message.channel.send("サーバーが閉じているので起動してください")
 
 
