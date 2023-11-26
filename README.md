@@ -9,6 +9,7 @@
 - discordドットpy
 - python-dotenv
 - pings
+- paramiko
 
 # 使い方
 - ```git clone https://github.com/Yon4800/ServerStartBot.git``` を実行します
