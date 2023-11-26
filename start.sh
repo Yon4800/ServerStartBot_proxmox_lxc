@@ -1,1 +1,1 @@
-screen -AmdS SSB python3.11 main.py
+sudo screen -AmdS SSB python3.11 main.py
