@@ -57,7 +57,14 @@ async def on_message(message):
                         "-o",
                         "UserKnownHostsFile=/dev/null",
                         f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
-                        "'echo {os.environ['RPASSWD']} | sudo -S shutdown -h now'",
+                        "'echo",
+                        os.environ["RPASSWD"],
+                        "|",
+                        "sudo",
+                        "-S",
+                        "shutdown",
+                        "-h",
+                        "now'",
                     ]
                 )
                 await message.channel.send("サーバーを停止しました")
@@ -81,7 +88,12 @@ async def on_message(message):
                         "-o",
                         "UserKnownHostsFile=/dev/null",
                         f"{os.environ['RUSERNAME']}@{os.environ['SSH']}",
-                        "'echo {os.environ['RPASSWD']} | sudo -S reboot'",
+                        "'echo",
+                        os.environ["RPASSWD"],
+                        "|",
+                        "sudo",
+                        "-S",
+                        "reboot'",
                     ]
                 )
                 await message.channel.send("サーバーを再起動しました")
