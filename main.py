@@ -60,7 +60,7 @@ async def on_message(message):
                 stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND1)
                 await message.channel.send("サーバーを停止しました")
             except Exception as e:
-                await message.channel.send("エラー！:" + e)
+                await message.channel.send(f"エラー！: {e}")
 
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
@@ -74,7 +74,7 @@ async def on_message(message):
                 stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND2)
                 await message.channel.send("サーバーを再起動しました")
             except Exception as e:
-                await message.channel.send("エラー！:" + e)
+                await message.channel.send(f"エラー！: {e}")
 
 
 # os.environを用いて環境変数を表示させます
