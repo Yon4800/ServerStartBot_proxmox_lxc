@@ -15,7 +15,7 @@ HOSTNAME = os.environ["SSH"]
 USERNAME = os.environ["RUSERNAME"]
 PASSWORD = os.environ["RPASSWD"]
 LINUX_COMMAND1 = f"lxc-stop {os.environ['CT']}"
-LINUX_COMMAND2 = f"lxc-stop -n {os.environ['CT']} -r"
+LINUX_COMMAND2 = f"lxc-stop {os.environ['CT']} -r"
 LINUX_COMMAND3 = f"lxc-start {os.environ['CT']}"
 
 intents = discord.Intents.default()
