@@ -23,7 +23,7 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-async def pinganddo(lcm, message):
+async def pinganddo(lcm, textmessage):
     with paramiko.SSHClient() as clientp:
         try:
             clientp = paramiko.SSHClient()
@@ -32,7 +32,7 @@ async def pinganddo(lcm, message):
                 hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
             )
             stdin, stdout, stderr = clientp.exec_command(lcm)
-            await message.channel.send(message)
+            await message.channel.send(textmessage)
         except Exception as e:
             await message.channel.send(f"エラー！: {e}")
 
