@@ -23,11 +23,6 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-# Ping
-p = pings.Ping()
-
-res = p.ping(os.environ["SSH2"])
-
 
 # ログインしたとき
 @client.event
@@ -43,6 +38,9 @@ async def on_message(message):
 
     # サーバー起動
     if message.content.startswith("$サーバーを起動して"):
+        # Ping
+        p = pings.Ping()
+        res = p.ping(os.environ["SSH2"])
         if res.is_reached():
             await message.channel.send("サーバーは既に起動しています")
         else:
