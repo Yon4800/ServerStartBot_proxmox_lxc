@@ -50,15 +50,15 @@ async def on_message(message):
 
     # サーバー起動
     if message.content.startswith("$サーバーを起動して"):
-        await pinganddo(LINUX_COMMAND3, "サーバーを起動しました")
+        async pinganddo(LINUX_COMMAND3, "サーバーを起動しました")
 
     # サーバー停止
     if message.content.startswith("$サーバーを停止して"):
-        await pinganddo(LINUX_COMMAND1, "サーバーを停止しました")
+        async pinganddo(LINUX_COMMAND1, "サーバーを停止しました")
 
     # サーバー再起動
     if message.content.startswith("$サーバーを再起動して"):
-        await pinganddo(LINUX_COMMAND2, "サーバーを再起動しました")
+        async pinganddo(LINUX_COMMAND2, "サーバーを再起動しました")
 
 # os.environを用いて環境変数を表示させます
 client.run(os.environ["DISTOKEN"])
