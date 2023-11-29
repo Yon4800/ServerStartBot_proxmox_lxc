@@ -14,8 +14,9 @@ load_dotenv()
 HOSTNAME = os.environ["SSH"]
 USERNAME = os.environ["RUSERNAME"]
 PASSWORD = os.environ["RPASSWD"]
-LINUX_COMMAND1 = f"echo {os.environ['RPASSWD']} | sudo -S shutdown -h now"
-LINUX_COMMAND2 = f"echo {os.environ['RPASSWD']} | sudo -S reboot"
+LINUX_COMMAND1 = f"lxc-stop {os.environ['CT']}"
+LINUX_COMMAND2 = f"lxc-stop -n {os.environ['CT']} -r"
+LINUX_COMMAND3 = f"lxc-start {os.environ['CT']}"
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -45,8 +46,17 @@ async def on_message(message):
         if res.is_reached():
             await message.channel.send("サーバーは既に起動しています")
         else:
-            send_magic_packet(os.environ["WOL"])
-            await message.channel.send("サーバーを起動しました")
+            with paramiko.SSHClient() as clientp:
+                try:
+                    clientp = paramiko.SSHClient()
+                    clientp.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                    clientp.connect(
+                        hostname=HOSTNAME, port=22, username=USERNAME, password=PASSWORD
+                    )
+                    stdin, stdout, stderr = clientp.exec_command(LINUX_COMMAND3)
+                    await message.channel.send("サーバーを起動しました")
+                except Exception as e:
+                    await message.channel.send(f"エラー！: {e}")
 
     # サーバー停止
     if message.content.startswith("$サーバーを停止して"):
