@@ -26,7 +26,7 @@ client = discord.Client(intents=intents)
 # Ping
 p = pings.Ping()
 
-res = p.ping(os.environ["SSH"])
+res = p.ping(os.environ["SSH2"])
 
 
 # ログインしたとき
