@@ -23,7 +23,7 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
-def pinganddo(lcm, message):
+async def pinganddo(lcm, message):
     with paramiko.SSHClient() as clientp:
         try:
             clientp = paramiko.SSHClient()
